@@ -1,0 +1,274 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Oct 09, 2024 at 11:23 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
+
+
+--
+-- Database: employee_management
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table contact_requests
+--
+
+CREATE TABLE contact_requests (
+  contact_id int(11) NOT NULL,
+  name varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  message text NOT NULL,
+  status enum('Pending','Reviewed') DEFAULT 'Pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table contact_requests
+--
+
+INSERT INTO contact_requests (contact_id, name, email, message, status) VALUES
+(1, 'hello', 'sharmaraj200103@gmail.com', '2001', 'Reviewed'),
+(2, 'Raj', 'rajsharma@gmail.com', 'FUCK YOU', 'Reviewed'),
+(3, 'Pema', 'pema@gmail.com', 'Hello', 'Reviewed'),
+(4, 'Sonam', 'sonam@bhutanmail.com', 'How do I apply for leave?', 'Reviewed'),
+(5, 'Jigme', 'jigme@bhutanmail.com', 'I need help with my account.', 'Reviewed'),
+(6, 'Pema', 'pema@bhutanmail.com', 'Can I reset my password?', 'Reviewed'),
+(7, 'Sonam', 'sonam@bhutanmail.com', 'How do I apply for leave?', 'Reviewed'),
+(8, 'Jigme', 'jigme@bhutanmail.com', 'I need help with my account.', 'Pending'),
+(9, 'Pema', 'pema@bhutanmail.com', 'Can I reset my password?', 'Reviewed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table employees
+--
+
+CREATE TABLE employees (
+  employee_id int(11) NOT NULL,
+  name varchar(100) NOT NULL,
+  department varchar(50) NOT NULL,
+  role enum('admin','employee') NOT NULL,
+  email varchar(100) NOT NULL,
+  contact varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table employees
+--
+
+INSERT INTO employees (employee_id, name, department, role, email, contact) VALUES
+(2, 'Sonam', 'HR', 'employee', 'sonam@bhutanmail.com', '17891234'),
+(3, 'Jigme', 'Finance', 'employee', 'jigme@bhutanmail.com', '17654321'),
+(25, 'Leki', 'HR', 'employee', 'leki@bhutanmail.com', '17912111'),
+(26, 'Nima', 'Finance', 'employee', 'nima@bhutanmail.com', '17999888'),
+(27, 'Pelden', 'IT', 'employee', 'pelden@bhutanmail.com', '17687444'),
+(28, 'Sonam Wangdi', 'Marketing', 'employee', 'sonamwangdi@bhutanmail.com', '17788444'),
+(29, 'Deki', 'Operations', 'employee', 'deki@bhutanmail.com', '17812345'),
+(30, 'Pema Wangmo', 'Admin', 'admin', 'pemawangmo@bhutanmail.com', '17754321'),
+(31, 'Kinley Dorji', 'Sales', 'employee', 'kinleydorji@bhutanmail.com', '17678901'),
+(32, 'Jangchub', 'Legal', 'employee', 'jangchub@bhutanmail.com', '17699933'),
+(33, 'Kezang', 'Finance', 'employee', 'kezang@bhutanmail.com', '17655432'),
+(34, 'Phub Zam', 'HR', 'employee', 'phubzam@bhutanmail.com', '17766543'),
+(35, 'Wangdi', 'IT', 'employee', 'wangdi@bhutanmail.com', '17633221'),
+(36, 'Lhendup', 'Sales', 'employee', 'lhendup@bhutanmail.com', '17988765'),
+(37, 'Yeshey Dorji', 'Operations', 'employee', 'yesheydorji@bhutanmail.com', '17887654'),
+(38, 'Thinley', 'Marketing', 'employee', 'thinley@bhutanmail.com', '17923456'),
+(39, 'Karma Tenzin', 'Finance', 'employee', 'karmatenzin@bhutanmail.com', '17698766'),
+(40, 'Tshering Zangmo', 'Admin', 'admin', 'tsheringzangmo@bhutanmail.com', '17812211'),
+(41, 'Dawa Tenzin', 'Legal', 'employee', 'dawatenzin@bhutanmail.com', '17899900'),
+(42, 'Ngawang', 'Marketing', 'employee', 'ngawang@bhutanmail.com', '17699887'),
+(43, 'Chimi', 'IT', 'employee', 'chimi@bhutanmail.com', '17965433'),
+(44, 'Sangay Wangchuk', 'Sales', 'employee', 'sangaywangchuk@bhutanmail.com', '17812299'),
+(45, 'Dawa Dorji', 'Operations', 'employee', 'dawadorji@bhutanmail.com', '17632122'),
+(67, 'Dorji', 'Sales', 'employee', 'dorji@bhutanmail.com', '17912345'),
+(69, 'Dorji', 'Sales', 'employee', 'dorji@bvhutanmail.com', '17912345');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table leave_applications
+--
+
+CREATE TABLE leave_applications (
+  leave_id int(11) NOT NULL,
+  employee_id int(11) NOT NULL,
+  leave_type varchar(50) NOT NULL,
+  start_date date NOT NULL,
+  end_date date NOT NULL,
+  status enum('Pending','Approved','Rejected') DEFAULT 'Pending',
+  comments text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table performance_ratings
+--
+
+CREATE TABLE performance_ratings (
+  rating_id int(11) NOT NULL,
+  employee_id int(11) NOT NULL,
+  target_id int(11) DEFAULT NULL,
+  rating_score int(11) DEFAULT NULL CHECK (rating_score between 1 and 10),
+  comments text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table performance_ratings
+--
+
+INSERT INTO performance_ratings (rating_id, employee_id, target_id, rating_score, comments) VALUES
+(2, 42, NULL, 10, '200'),
+(3, 40, NULL, 9, 'jhj');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table targets
+--
+
+CREATE TABLE targets (
+  target_id int(11) NOT NULL,
+  employee_id int(11) NOT NULL,
+  description text NOT NULL,
+  start_date date NOT NULL,
+  end_date date NOT NULL,
+  approval_status enum('Pending','Approved') DEFAULT 'Pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table users
+--
+
+CREATE TABLE users (
+  user_id int(11) NOT NULL,
+  name varchar(100) NOT NULL,
+  role enum('admin','employee') NOT NULL,
+  username varchar(50) NOT NULL,
+  password varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table users
+--
+
+INSERT INTO users (user_id, name, role, username, password) VALUES
+(1, 'Admin User', 'admin', 'admin', '$2y$10$VGJtN12ik6bDq2.a/WOpVui4.JF.FphJj9a3i6fAeiGfsyGz4.Uze'),
+(3, 'Kinley', 'admin', 'Dorji', '$2y$10$M88qx/VnYJRde3cWggC6fu6WxFpEjoRSRnHVFn/gadcydeKViMoaO'),
+(4, 'Raj', 'employee', 'Kinley', '$2y$10$6NaCP.opH1cRBrbAxZ2goOKX.1n5pGU9NUfU0mlW5pAOHGKCfhRH6'),
+(5, 'Raj', 'employee', 'sharma1', '$2y$10$5rjMD5b1SpObwAnSqAaeyOe.O/9HO.GV4s/5co0BdUThHQP9FV7k6'),
+(6, 'Kinley', 'employee', 'sharmaraj200103@gmail.com', '$2y$10$FMKvpNqw5NDOBH1DlNHyrOyHxQZwm0zUh99EeDDyYLAuvnTxTQuqi'),
+(7, 'Raj', 'employee', 'Sharma', '$2y$10$dO/.5dXj92ebIMjOVilcqemJVSDnZZxu0jQtRMMKd5jmHd7FYp4Ka'),
+(8, 'Pema', 'employee', 'Pema Khandu', '$2y$10$bE.nx83ZZXGSIFn5uNms3uCRKU8rZ1UoffKRIN9M74mPl6FjSyRa6');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table contact_requests
+--
+ALTER TABLE contact_requests
+  ADD PRIMARY KEY (contact_id);
+
+--
+-- Indexes for table employees
+--
+ALTER TABLE employees
+  ADD PRIMARY KEY (employee_id),
+  ADD UNIQUE KEY email (email);
+
+--
+-- Indexes for table leave_applications
+--
+ALTER TABLE leave_applications
+  ADD PRIMARY KEY (leave_id),
+  ADD KEY fk_employee (employee_id);
+
+--
+-- Indexes for table performance_ratings
+--
+ALTER TABLE performance_ratings
+  ADD PRIMARY KEY (rating_id),
+  ADD KEY employee_id (employee_id);
+
+--
+-- Indexes for table targets
+--
+ALTER TABLE targets
+  ADD PRIMARY KEY (target_id),
+  ADD KEY employee_id (employee_id);
+
+--
+-- Indexes for table users
+--
+ALTER TABLE users
+  ADD PRIMARY KEY (user_id),
+  ADD UNIQUE KEY username (username);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table contact_requests
+--
+ALTER TABLE contact_requests
+  MODIFY contact_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table employees
+--
+ALTER TABLE employees
+  MODIFY employee_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+
+--
+-- AUTO_INCREMENT for table leave_applications
+--
+ALTER TABLE leave_applications
+  MODIFY leave_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table performance_ratings
+--
+ALTER TABLE performance_ratings
+  MODIFY rating_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table targets
+--
+ALTER TABLE targets
+  MODIFY target_id int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table users
+--
+ALTER TABLE users
+  MODIFY user_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+-
+--
+-- Constraints for table performance_ratings
+--
+ALTER TABLE performance_ratings
+  ADD CONSTRAINT performance_ratings_ibfk_1 FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE;
+
+--
+-- Constraints for table targets
+--
+ALTER TABLE targets
+  ADD CONSTRAINT targets_ibfk_1 FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
